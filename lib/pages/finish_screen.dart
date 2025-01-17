@@ -108,7 +108,7 @@ class FinishScreenState extends State<FinishScreen> {
                         ),
                       ),
                       Text(
-                        "PLAYERS",
+                        "QUIZ",
                         style: Utils.textStyle(),
                         textAlign: TextAlign.center,
                       ),

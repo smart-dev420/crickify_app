@@ -111,7 +111,7 @@ class GameScreenState extends State<GameScreen> {
                         ),
                       ),
                       Text(
-                        "PLAYERS",
+                        "QUIZ",
                         style: Utils.textStyle(),
                         textAlign: TextAlign.center,
                       ),
@@ -176,11 +176,8 @@ class GameScreenState extends State<GameScreen> {
                           borderRadius: const BorderRadius.all(
                             Radius.circular(50),
                           ),
-                          color: selected == index
-                              ? const Color(0xff1C2025)
-                              : Colors.transparent,
                           border: Border.all(
-                            color: const Color(0xffE8D82E),
+                            color: selected == index ? const Color(0xff53E82E) : const Color(0xffE8D82E),
                             width: 5,
                           ),
                         ),

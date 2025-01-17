@@ -96,7 +96,7 @@ class HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     children: [
-                      Assets.images.help.image(),
+                      // Assets.images.help.image(),
                       const Spacer(),
                       InkWell(
                         onTap: () {
@@ -151,7 +151,7 @@ class HomeScreenState extends State<HomeScreen> {
                       builder: (context) => const QuizScreen(),
                     ),
                   );
-                }, 'ACHIVS'),
+                }, 'QUIZ'),
               ],
             ),
           ],

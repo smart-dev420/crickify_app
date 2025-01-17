@@ -102,7 +102,7 @@ class QuizScreenState extends State<QuizScreen> {
                         ),
                       ),
                       Text(
-                        "PLAYERS",
+                        "QUIZ",
                         style: Utils.textStyle(),
                         textAlign: TextAlign.center,
                       ),
