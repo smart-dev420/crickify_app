@@ -1,22 +1,20 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:crickify/gen/assets.gen.dart';
-import 'package:crickify/pages/event_screen.dart';
-import 'package:crickify/pages/matches_screen.dart';
-import 'package:crickify/pages/players_screen.dart';
-import 'package:crickify/pages/quiz_screen.dart';
+import 'package:crickify/pages/data.dart';
 import 'package:crickify/pages/setting_screen.dart';
 import 'package:crickify/pages/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class EventDetailScreen extends StatefulWidget {
+  const EventDetailScreen({required this.index, super.key});
+  final int index;
 
   @override
-  HomeScreenState createState() => HomeScreenState();
+  EventDetailScreenState createState() => EventDetailScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class EventDetailScreenState extends State<EventDetailScreen> {
   bool isMusicOn = false;
   bool isSoundOn = false;
   late AudioPlayer _backgroundAudioPlayer;
@@ -85,19 +83,29 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         child: Stack(
           children: [
-            Positioned(
-                bottom: 0,
-                left: 0,
-                child: Assets.images.home.image(scale: 1.2)),
             Column(
               children: [
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Assets.images.help.image(),
-                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          _playClickSound();
+                          Navigator.pop(context);
+                        },
+                        child: SizedBox(
+                          width: 50,
+                          child: Assets.images.back.image(scale: 1.2),
+                        ),
+                      ),
+                      Text(
+                        "EVENTS",
+                        style: Utils.textStyle(),
+                        textAlign: TextAlign.center,
+                      ),
                       InkWell(
                         onTap: () {
                           _playClickSound();
@@ -109,76 +117,61 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         },
-                        child: Assets.images.setting.image(),
-                      )
+                        child: SizedBox(
+                          width: 50,
+                          child: Assets.images.setting.image(),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 30),
-                Assets.images.logo.image(),
-                const SizedBox(height: 20),
-                menuItem(() {
-                  Navigator.pushReplacement<void, void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) => const MatchesScreen(),
+                Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: SizedBox(
+                        width: 405,
+                        height: 243,
+                        child: Data.eventPicture[widget.index],
+                      ),
                     ),
-                  );
-                }, 'MATCHES'),
-                const SizedBox(height: 20),
-                menuItem(() {
-                  Navigator.pushReplacement<void, void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) => const PlayersScreen(),
+                    Positioned(
+                      top: 20,
+                      left: 30,
+                      child: Stack(
+                        children: [
+                          Text(
+                            Data.events[widget.index]['title']!,
+                            style: Utils.textBorderStyle(),
+                          ),
+                          Text(
+                            Data.events[widget.index]['title']!,
+                            style: Utils.textStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
                     ),
-                  );
-                }, 'PLAYERS'),
-                const SizedBox(height: 20),
-                menuItem(() {
-                  Navigator.pushReplacement<void, void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) => const EventScreen(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Text(
+                        Data.events[widget.index]['description']!,
+                        style: Utils.textStyle(fontSize: 16),
+                      ),
                     ),
-                  );
-                }, 'EVENTS'),
-                const SizedBox(height: 20),
-                menuItem(() {
-                  Navigator.pushReplacement<void, void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) => const QuizScreen(),
-                    ),
-                  );
-                }, 'ACHIVS'),
+                  ),
+                ),
               ],
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget menuItem(VoidCallback onTap, String text) {
-    return GestureDetector(
-      onTap: () async {
-        await _playClickSound();
-        await _stopBackgroundMusic();
-        onTap();
-      },
-      child: Container(
-        width: 220,
-        padding: const EdgeInsets.symmetric(horizontal: 43, vertical: 9),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(50)),
-          border: Border.all(
-            color: const Color(0xffE8D82E),
-            width: 5,
-          ),
-        ),
-        child:
-            Text(text, style: Utils.textStyle(), textAlign: TextAlign.center),
       ),
     );
   }

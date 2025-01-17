@@ -2,20 +2,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:crickify/gen/assets.gen.dart';
 import 'package:crickify/pages/data.dart';
 import 'package:crickify/pages/home_screen.dart';
-import 'package:crickify/pages/match_detail_screen.dart';
+import 'package:crickify/pages/player_detail_screen.dart';
 import 'package:crickify/pages/setting_screen.dart';
 import 'package:crickify/pages/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MatchesScreen extends StatefulWidget {
-  const MatchesScreen({super.key});
+class PlayersScreen extends StatefulWidget {
+  const PlayersScreen({super.key});
 
   @override
-  MatchesScreenState createState() => MatchesScreenState();
+  PlayersScreenState createState() => PlayersScreenState();
 }
 
-class MatchesScreenState extends State<MatchesScreen> {
+class PlayersScreenState extends State<PlayersScreen> {
   bool isMusicOn = false;
   bool isSoundOn = false;
   late AudioPlayer _backgroundAudioPlayer;
@@ -99,7 +99,8 @@ class MatchesScreenState extends State<MatchesScreen> {
                           Navigator.pushReplacement<void, void>(
                             context,
                             MaterialPageRoute<void>(
-                                builder: (context) => const HomeScreen()),
+                              builder: (context) => const HomeScreen(),
+                            ),
                           );
                         },
                         child: SizedBox(
@@ -108,7 +109,7 @@ class MatchesScreenState extends State<MatchesScreen> {
                         ),
                       ),
                       Text(
-                        "MATCHES",
+                        "PLAYERS",
                         style: Utils.textStyle(),
                         textAlign: TextAlign.center,
                       ),
@@ -133,10 +134,10 @@ class MatchesScreenState extends State<MatchesScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: Data.matches.length,
+                    itemCount: Data.playData.length,
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
-                      final match = Data.matches[index];
+                      final match = Data.playData[index];
                       return Container(
                         margin: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 16),
@@ -148,49 +149,29 @@ class MatchesScreenState extends State<MatchesScreen> {
                             width: 1,
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 15),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Cricket / Asia Cup',
-                                style: Utils.textStyle(fontSize: 12),
-                                textAlign: TextAlign.center,
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: SizedBox(
+                                width: 180,
+                                height: 190,
+                                child: Data.playersPicture[index],
                               ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Data.flags[match['team1']] as Widget,
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    match['team1'],
-                                    style: Utils.textStyle(fontSize: 16),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    match['date'],
-                                    style: Utils.textStyle(fontSize: 18),
-                                  )
-                                ],
+                            ),
+                            Positioned(
+                              top: 40,
+                              left: 220,
+                              child: Text(
+                                match['name']!,
+                                style: Utils.textStyle(fontSize: 25),
                               ),
-                              const SizedBox(height: 12),
-                              Row(
-                                children: [
-                                  Data.flags[match['team2']] as Widget,
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    match['team2'],
-                                    style: Utils.textStyle(fontSize: 16),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    match['time'],
-                                    style: Utils.textStyle(fontSize: 18),
-                                  )
-                                ],
-                              ),
-                              GestureDetector(
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              left:
+                                  (MediaQuery.of(context).size.width - 120) / 2,
+                              child: GestureDetector(
                                 onTap: () {
                                   _playClickSound();
                                   _stopBackgroundMusic();
@@ -198,7 +179,7 @@ class MatchesScreenState extends State<MatchesScreen> {
                                     context,
                                     MaterialPageRoute<void>(
                                         builder: (context) =>
-                                            MatchDetailScreen(index: index)),
+                                            PlayerDetailScreen(index: index)),
                                   );
                                 },
                                 child: Container(
@@ -211,13 +192,15 @@ class MatchesScreenState extends State<MatchesScreen> {
                                   height: 30,
                                   child: Text(
                                     'Open',
-                                    style: Utils.textStyle(fontSize: 16, color: const Color(0xff1D5C49)),
+                                    style: Utils.textStyle(
+                                        fontSize: 16,
+                                        color: const Color(0xff1D5C49)),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
                     },

@@ -119,6 +119,12 @@ class $AssetsItemsGen {
   /// File path: assets/items/e1.png
   AssetGenImage get e1 => const AssetGenImage('assets/items/e1.png');
 
+  /// File path: assets/items/e10.png
+  AssetGenImage get e10 => const AssetGenImage('assets/items/e10.png');
+
+  /// File path: assets/items/e11.png
+  AssetGenImage get e11 => const AssetGenImage('assets/items/e11.png');
+
   /// File path: assets/items/e2.png
   AssetGenImage get e2 => const AssetGenImage('assets/items/e2.png');
 
@@ -140,6 +146,9 @@ class $AssetsItemsGen {
   /// File path: assets/items/e8.png
   AssetGenImage get e8 => const AssetGenImage('assets/items/e8.png');
 
+  /// File path: assets/items/e9.png
+  AssetGenImage get e9 => const AssetGenImage('assets/items/e9.png');
+
   /// File path: assets/items/p1.png
   AssetGenImage get p1 => const AssetGenImage('assets/items/p1.png');
 
@@ -155,6 +164,15 @@ class $AssetsItemsGen {
   /// File path: assets/items/p5.png
   AssetGenImage get p5 => const AssetGenImage('assets/items/p5.png');
 
+  /// File path: assets/items/p6.png
+  AssetGenImage get p6 => const AssetGenImage('assets/items/p6.png');
+
+  /// File path: assets/items/p7.png
+  AssetGenImage get p7 => const AssetGenImage('assets/items/p7.png');
+
+  /// File path: assets/items/p8.png
+  AssetGenImage get p8 => const AssetGenImage('assets/items/p8.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         c1,
@@ -164,6 +182,8 @@ class $AssetsItemsGen {
         c5,
         c6,
         e1,
+        e10,
+        e11,
         e2,
         e3,
         e4,
@@ -171,11 +191,15 @@ class $AssetsItemsGen {
         e6,
         e7,
         e8,
+        e9,
         p1,
         p2,
         p3,
         p4,
-        p5
+        p5,
+        p6,
+        p7,
+        p8
       ];
 }
 

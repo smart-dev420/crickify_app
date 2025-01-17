@@ -65,6 +65,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Revalia.ttf
 
+    - family: Ram
+      fonts:
+        - asset: assets/fonts/Ram.ttf
+
 flutter_intl:
   enabled: false
 

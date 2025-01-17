@@ -1,21 +1,21 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:crickify/gen/assets.gen.dart';
 import 'package:crickify/pages/data.dart';
+import 'package:crickify/pages/event_detail_screen.dart';
 import 'package:crickify/pages/home_screen.dart';
-import 'package:crickify/pages/match_detail_screen.dart';
 import 'package:crickify/pages/setting_screen.dart';
 import 'package:crickify/pages/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MatchesScreen extends StatefulWidget {
-  const MatchesScreen({super.key});
+class EventScreen extends StatefulWidget {
+  const EventScreen({super.key});
 
   @override
-  MatchesScreenState createState() => MatchesScreenState();
+  EventScreenState createState() => EventScreenState();
 }
 
-class MatchesScreenState extends State<MatchesScreen> {
+class EventScreenState extends State<EventScreen> {
   bool isMusicOn = false;
   bool isSoundOn = false;
   late AudioPlayer _backgroundAudioPlayer;
@@ -99,7 +99,8 @@ class MatchesScreenState extends State<MatchesScreen> {
                           Navigator.pushReplacement<void, void>(
                             context,
                             MaterialPageRoute<void>(
-                                builder: (context) => const HomeScreen()),
+                              builder: (context) => const HomeScreen(),
+                            ),
                           );
                         },
                         child: SizedBox(
@@ -108,7 +109,7 @@ class MatchesScreenState extends State<MatchesScreen> {
                         ),
                       ),
                       Text(
-                        "MATCHES",
+                        "EVENTS",
                         style: Utils.textStyle(),
                         textAlign: TextAlign.center,
                       ),
@@ -133,92 +134,70 @@ class MatchesScreenState extends State<MatchesScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: Data.matches.length,
+                    itemCount: Data.events.length,
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
-                      final match = Data.matches[index];
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: const Color(0xff1C2025),
-                          border: Border.all(
-                            color: const Color(0xff878787),
-                            width: 1,
+                      final match = Data.events[index];
+                      return Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: 405,
+                              height: 243,
+                              child: Data.eventPicture[index],
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 15),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Cricket / Asia Cup',
-                                style: Utils.textStyle(fontSize: 12),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Data.flags[match['team1']] as Widget,
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    match['team1'],
-                                    style: Utils.textStyle(fontSize: 16),
+                          Positioned(
+                            top: 20,
+                            left: 30,
+                            child: Stack(
+                              children: [
+                                Text(
+                                  match['title']!,
+                                  style: Utils.textBorderStyle(),
+                                ),
+                                Text(
+                                  match['title']!,
+                                  style: Utils.textStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 20,
+                            left: (MediaQuery.of(context).size.width - 120) / 2,
+                            child: GestureDetector(
+                              onTap: () {
+                                _playClickSound();
+                                _stopBackgroundMusic();
+                                Navigator.push<void>(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (context) =>
+                                        EventDetailScreen(index: index),
                                   ),
-                                  const Spacer(),
-                                  Text(
-                                    match['date'],
-                                    style: Utils.textStyle(fontSize: 18),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
-                                children: [
-                                  Data.flags[match['team2']] as Widget,
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    match['team2'],
-                                    style: Utils.textStyle(fontSize: 16),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    match['time'],
-                                    style: Utils.textStyle(fontSize: 18),
-                                  )
-                                ],
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _playClickSound();
-                                  _stopBackgroundMusic();
-                                  Navigator.push<void>(
-                                    context,
-                                    MaterialPageRoute<void>(
-                                        builder: (context) =>
-                                            MatchDetailScreen(index: index)),
-                                  );
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 20),
-                                  decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  width: 120,
-                                  height: 30,
-                                  child: Text(
-                                    'Open',
-                                    style: Utils.textStyle(fontSize: 16, color: const Color(0xff1D5C49)),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 20),
+                                decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(20)),
+                                width: 120,
+                                height: 30,
+                                child: Text(
+                                  'Open',
+                                  style: Utils.textStyle(
+                                      fontSize: 16,
+                                      color: const Color(0xff1D5C49)),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       );
                     },
                   ),
