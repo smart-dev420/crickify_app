@@ -198,16 +198,17 @@ class GameScreenState extends State<GameScreen> {
                   child: GestureDetector(
                     onTap: () {
                       _playClickSound();
-                      _stopBackgroundMusic();
                       setState(() {
                         if (selected == Data.gameData[quizNumber]['correct']) {
                           mark++;
                         }
                         if (quizNumber == 9) {
+                          _stopBackgroundMusic();
                           Navigator.pushReplacement<void, void>(
                             context,
                             MaterialPageRoute<void>(
-                                builder: (context) => FinishScreen(mark: mark)),
+                              builder: (context) => FinishScreen(mark: mark),
+                            ),
                           );
                         } else {
                           quizNumber++;

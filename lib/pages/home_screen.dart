@@ -118,7 +118,7 @@ class HomeScreenState extends State<HomeScreen> {
                 Assets.images.logo.image(),
                 const SizedBox(height: 20),
                 menuItem(() {
-                  Navigator.pushReplacement<void, void>(
+                  Navigator.push<void>(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) => const MatchesScreen(),
@@ -127,7 +127,7 @@ class HomeScreenState extends State<HomeScreen> {
                 }, 'MATCHES'),
                 const SizedBox(height: 20),
                 menuItem(() {
-                  Navigator.pushReplacement<void, void>(
+                  Navigator.push<void>(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) => const PlayersScreen(),
@@ -136,7 +136,7 @@ class HomeScreenState extends State<HomeScreen> {
                 }, 'PLAYERS'),
                 const SizedBox(height: 20),
                 menuItem(() {
-                  Navigator.pushReplacement<void, void>(
+                  Navigator.push<void>(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) => const EventScreen(),
@@ -145,7 +145,7 @@ class HomeScreenState extends State<HomeScreen> {
                 }, 'EVENTS'),
                 const SizedBox(height: 20),
                 menuItem(() {
-                  Navigator.pushReplacement<void, void>(
+                  Navigator.push<void>(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) => const QuizScreen(),

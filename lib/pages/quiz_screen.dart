@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:crickify/gen/assets.gen.dart';
 import 'package:crickify/pages/game_screen.dart';
-import 'package:crickify/pages/home_screen.dart';
 import 'package:crickify/pages/setting_screen.dart';
 import 'package:crickify/pages/utils.dart';
 import 'package:flutter/material.dart';
@@ -95,11 +94,7 @@ class QuizScreenState extends State<QuizScreen> {
                         onTap: () {
                           _playClickSound();
                           _stopBackgroundMusic();
-                          Navigator.pushReplacement<void, void>(
-                            context,
-                            MaterialPageRoute<void>(
-                                builder: (context) => const HomeScreen()),
-                          );
+                          Navigator.pop(context);
                         },
                         child: SizedBox(
                           width: 50,
@@ -162,7 +157,7 @@ class QuizScreenState extends State<QuizScreen> {
                         onTap: () {
                           _playClickSound();
                           _stopBackgroundMusic();
-                          Navigator.push<void>(
+                          Navigator.pushReplacement<void, void>(
                             context,
                             MaterialPageRoute<void>(
                               builder: (context) => const GameScreen(),

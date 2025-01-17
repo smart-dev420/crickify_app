@@ -2,7 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:crickify/gen/assets.gen.dart';
 import 'package:crickify/pages/data.dart';
 import 'package:crickify/pages/event_detail_screen.dart';
-import 'package:crickify/pages/home_screen.dart';
 import 'package:crickify/pages/setting_screen.dart';
 import 'package:crickify/pages/utils.dart';
 import 'package:flutter/material.dart';
@@ -96,12 +95,7 @@ class EventScreenState extends State<EventScreen> {
                         onTap: () {
                           _playClickSound();
                           _stopBackgroundMusic();
-                          Navigator.pushReplacement<void, void>(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                          );
+                          Navigator.pop(context);
                         },
                         child: SizedBox(
                           width: 50,

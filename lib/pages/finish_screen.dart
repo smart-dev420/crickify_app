@@ -168,7 +168,7 @@ class FinishScreenState extends State<FinishScreen> {
                 onTap: () {
                   _playClickSound();
                   _stopBackgroundMusic();
-                  Navigator.push<void>(
+                  Navigator.pushReplacement<void, void>(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) => const GameScreen(),
